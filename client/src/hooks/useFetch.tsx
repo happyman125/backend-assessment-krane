@@ -9,12 +9,11 @@ import axios from "axios";
 export const useFetch = (url: string, body?: any) => {
   const [response, setResponse] = useState<any>([]);
   const [error, setError] = useState<string | null>(null);
-  const [abort, setAbort] = useState(() => {});
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const { data } = await axios.get(url);
+        const { data } = await axios.get(`${'http://localhost:7777'}${url}`);
 
         setResponse(data);
       } catch (error: any) {
@@ -23,7 +22,7 @@ export const useFetch = (url: string, body?: any) => {
       }
     };
     fetchData();
-  }, []);
+  }, [url]);
 
-  return [response, setResponse, error, abort];
+  return [response, setResponse, error];
 };
